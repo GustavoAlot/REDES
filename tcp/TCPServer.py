@@ -16,14 +16,24 @@ while 1:
         message = " ".join(os.listdir())
 
     elif sentence == 'pwd' :
-        message = os.getcwd()        
-
-    elif sentence == 'scp' :
-        message = 'digitou scp'
+        message = os.getcwd()       
 
     elif sentence.split()[0] == 'cd'  :
-        os.chdir( sentence.split()[1])
-        message = os.getcwd() 
+            os.chdir( sentence.split()[1])
+            message = os.getcwd() 
+            
+    elif sentence.split()[0] == 'scp' :
+        ark = open(sentence.split()[1], 'rb')
+
+        data = ark.read(1024)
+        while(data) :
+                connectionSocket.send(data)
+                data = ark.read(1024)
+
+        data = ''
+        print('Acabou de enviar')
+        connectionSocket.send(data.encode('utf-8'))
+    
 
     else  :
         message = 'Comando inválido'
