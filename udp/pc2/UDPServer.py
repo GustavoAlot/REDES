@@ -7,10 +7,14 @@ serverSocket.bind(('', serverPort))
 print ('The server is ready to receive')
 while 1:
         modifiedMessage = ''
+
         (message, clientAddress) = serverSocket.recvfrom(2048)
         message = message.decode('utf-8')
+
         if message == 'ls' :
+                
                 modifiedMessage = " ".join(os.listdir())
+                
 
         elif message == 'pwd' :
                 modifiedMessage = os.getcwd()        
@@ -32,11 +36,16 @@ while 1:
 
 
 
-
-
         elif message.split()[0] == 'cd'  :
-                os.chdir( message.split()[1])
-                modifiedMessage = os.getcwd() 
+
+                if len(message.split()) !=  2 :
+                        modifiedMessage = "Quantidade de argumentos invalida seu jumento"
+
+                        
+                else :
+                        directory = message.split()[1].lstrip('/')
+                        os.chdir(directory)
+                        modifiedMessage = os.getcwd()
 
         else  :
                 modifiedMessage = 'Comando inválido'

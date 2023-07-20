@@ -8,6 +8,7 @@ clientSocket = socket(AF_INET, SOCK_DGRAM)
 while True: 
 
     message = input('Da um comando ae: ').encode('utf-8')
+    
     if message.decode('utf-8') == 'break' :
         break
     clientSocket.sendto(message,(serverName, serverPort))
